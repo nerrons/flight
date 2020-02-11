@@ -1,3 +1,4 @@
+from datetime import timedelta, date
 # Day of Week --> Date
 
 # DoW = day of week
@@ -23,7 +24,7 @@ def calc_date_factory(start_dow, start_date):
 
         # diff: the # of days from the desired date to now
         diff = (last_dow - dow) % 7 + skipped_weeks * 7
-        this_date = last_date - diff
+        this_date = last_date - timedelta(days=diff) # tweak this
 
         # update states
         last_date = this_date
@@ -34,17 +35,21 @@ def calc_date_factory(start_dow, start_date):
 
 
 if __name__ == "__main__":
-    calc_date = calc_date_factory(1, 30) # Today is Monday, 30th
+    calc_date = calc_date_factory(1, date(2020, 3, 30)) # Today is Monday, 30th
 
-    # See the attached image to get what this does
-    print(calc_date(7)) # Last Sunday (Sunday from 1 week ago) is 29th
-    print(calc_date(5)) # Last Friday is 27th
-    print(calc_date(4)) # Last Thursday is 26th
-    print(calc_date(4)) # Same, still 26th
-    print(calc_date(3)) # Last Wednesday is 25th
+    l = [7, 5, 4, 4, 3, 7]
 
-    # If you want to specify skipped weeks
-    # Same as regular results minus (7 * skipped_weeks)
-    print(calc_date(2, 1)) # Tuesday from 2 weeks ago is 17th
-    print(calc_date(5, 1)) # Friday from 4 weeks ago is 6th
+    print(list(map(lambda x: calc_date(x).strftime('%d, %b %Y'), l)))
+
+    # # See the attached image to get what this does
+    # print(calc_date(7)) # Last Sunday (Sunday from 1 week ago) is 29th
+    # print(calc_date(5)) # Last Friday is 27th
+    # print(calc_date(4)) # Last Thursday is 26th
+    # print(calc_date(4)) # Same, still 26th
+    # print(calc_date(3)) # Last Wednesday is 25th
+
+    # # If you want to specify skipped weeks
+    # # Same as regular results minus (7 * skipped_weeks)
+    # print(calc_date(2, 1)) # Tuesday from 2 weeks ago is 17th
+    # print(calc_date(5, 1)) # Friday from 4 weeks ago is 6th
 
