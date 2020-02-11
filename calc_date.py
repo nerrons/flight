@@ -11,7 +11,7 @@
 # 2. Supply the DoW of the day you want to know the date.
 # 3. The function returns the date.
 # Tweak it to conform to date formats you use.
-def calc_date_factory(start_date, start_dow):
+def calc_date_factory(start_dow, start_date):
     # remember the results from the previous query
     last_date = start_date
     last_dow = start_dow
@@ -34,7 +34,7 @@ def calc_date_factory(start_date, start_dow):
 
 
 if __name__ == "__main__":
-    calc_date = calc_date_factory(30, 1) # Today is Monday, 30th
+    calc_date = calc_date_factory(1, 30) # Today is Monday, 30th
 
     # See the attached image to get what this does
     print(calc_date(7)) # Last Sunday (Sunday from 1 week ago) is 29th
